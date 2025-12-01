@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
+use App\Livewire\CompaniesTable;
 
 Route::get('/', function () {
     return view('welcome');
@@ -13,6 +14,30 @@ Route::view('dashboard', 'dashboard')
     ->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
+
+    // Companies
+    Volt::route('companies', CompaniesTable::class)
+        ->name('companies.index')
+        ->middleware('can:viewAny,App\Models\Company');
+
+    Volt::route('companies/{company}', 'companies.show')
+        ->name('company.show')
+        ->middleware('can:view,company');
+
+    // Projects
+    Volt::route('projects', 'projects.index')
+        ->name('projects.index')
+        ->middleware('can:viewAny,App\Models\Project');
+
+    Volt::route('projects/{project}', 'projects.show')
+        ->name('projects.show')
+        ->middleware('can:view,project');
+
+    // Tasks
+    Volt::route('tasks/{task}', 'tasks.show')
+        ->name('tasks.show')
+        ->middleware('can:view,task');
+
     Route::redirect('settings', 'settings/profile');
 
     Volt::route('settings/profile', 'settings.profile')->name('profile.edit');

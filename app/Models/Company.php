@@ -8,11 +8,21 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Company extends Model
 {
-    protected $fillable = ['name', 'nit', 'phone', 'email'];
+    protected $fillable = [
+        'name', 
+        'nit', 
+        'phone', 
+        'email'
+    ];
 
-    public function user(): BelongsTo
+    protected $hidden = [
+        'created_at', 
+        'updated_at'
+    ];
+
+    public function user(): HasMany
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(User::class);
     }
 
     public function projects(): HasMany

@@ -3,8 +3,38 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Task extends Model
 {
-    //
+    protected $fillable = [
+        'project_id',
+        'user_id', 
+        'title', 
+        'description', 
+        'status', 
+        'priority', 
+        'due_date'
+    ];
+    
+    protected $hidden = [
+        'created_at', 
+        'updated_at'
+    ];
+
+    protected function casts(): Array
+    {
+        return ['due_date' => 'date'];
+    }
+
+    public function project(): BelongsTo
+    {
+        return $this->belongsTo(Project::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }
