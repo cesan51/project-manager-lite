@@ -3,7 +3,20 @@
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
-use App\Livewire\CompaniesTable;
+use App\Livewire\Companies\Index as CompaniesIndex;
+use App\Livewire\Companies\Create as CompaniesCreate;
+use App\Livewire\Companies\Show as CompaniesShow;
+use App\Livewire\Companies\Edit as CompaniesEdit;
+
+use App\Livewire\Projects\Index as ProjectsIndex;
+use App\Livewire\Projects\Create as ProjectsCreate;
+use App\Livewire\Projects\Show as ProjectsShow;
+use App\Livewire\Projects\Edit as ProjectsEdit;
+
+use App\Livewire\Tasks\Index as TasksIndex;
+use App\Livewire\Tasks\Create as TasksCreate;
+use App\Livewire\Tasks\Show as TasksShow;
+use App\Livewire\Tasks\Edit as TasksEdit;
 
 Route::get('/', function () {
     return view('welcome');
@@ -16,27 +29,30 @@ Route::view('dashboard', 'dashboard')
 Route::middleware(['auth'])->group(function () {
 
     // Companies
-    Volt::route('companies', CompaniesTable::class)
-        ->name('companies.index')
-        ->middleware('can:viewAny,App\Models\Company');
-
-    Volt::route('companies/{company}', 'companies.show')
-        ->name('company.show')
-        ->middleware('can:view,company');
+    Route::prefix('companies')->group(function(){
+        Volt::route('/', CompaniesIndex::class)->name('companies.index')->middleware('can:viewAny,App\Models\Company');
+        Volt::route('/create', CompaniesCreate::class)->name('companies.create')->middleware('can:create,App\Models\Company');
+        Volt::route('/{company}', CompaniesShow::class)->name('companies.show');
+        Volt::route('/{company}/edit', CompaniesEdit::class)->name('companies.edit');
+    });
 
     // Projects
-    Volt::route('projects', 'projects.index')
-        ->name('projects.index')
-        ->middleware('can:viewAny,App\Models\Project');
+    Route::prefix('projects')->group(function(){
+        Volt::route('/', ProjectsIndex::class)->name('projects.index')->middleware('can:viewAny,App\Models\Project');
+        Volt::route('/create', ProjectsCreate::class)->name('projects.create')->middleware('can:create,App\Models\Project');
+        Volt::route('/{project}', ProjectsShow::class)->name('projects.show')->middleware('can:view,project');
+        Volt::route('/{project}/edit', ProjectsEdit::class)->name('projects.edit')->middleware('can:update,project');
+    });
 
-    Volt::route('projects/{project}', 'projects.show')
-        ->name('projects.show')
-        ->middleware('can:view,project');
 
     // Tasks
-    Volt::route('tasks/{task}', 'tasks.show')
-        ->name('tasks.show')
-        ->middleware('can:view,task');
+    Route::prefix('tasks')->group(function(){
+        Volt::route('/', TasksIndex::class)->name('tasks.index')->middleware('can:viewAny,App\Models\Task');
+        Volt::route('/create', TasksCreate::class)->name('tasks.create')->middleware('can:create,App\Models\Task');
+        Volt::route('/{task}', TasksShow::class)->name('tasks.show')->middleware('can:view,task');
+        Volt::route('/{task}/edit', TasksEdit::class)->name('tasks.edit')->middleware('can:update,task');
+    });
+
 
     Route::redirect('settings', 'settings/profile');
 
