@@ -22,13 +22,11 @@ class StoreProjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'company_id'    => ['required', 'exists:companies,id'],
-            'user_id'       => ['required', 'exists:users,id'],
             'name'          => ['required', 'string', 'max:50'],
             'description'   => ['nullable' ,'string', 'max:255'],
             'status'        => ['required', 'string', 'in:planing,in_progress,delayed,completed'],
-            'start_date'    => ['nullable','date', 'date_format:Y-m-d', 'after_or_equals:today'],
-            'end_date'      => ['nullable','date', 'date_format:Y-m-d', 'after_or_equals:start_date']
+            'start_date'    => ['nullable','date', 'date_format:Y-m-d', 'after_or_equal:today'],
+            'end_date'      => ['nullable','date', 'date_format:Y-m-d', 'after_or_equal:start_date']
         ];
     }
 }

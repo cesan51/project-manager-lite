@@ -25,7 +25,7 @@ class UpdateProjectRequest extends FormRequest
             'name'          => ['required', 'string', 'max:50'],
             'description'   => ['nullable' ,'string', 'max:255'],
             'status'        => ['required', 'string', 'in:planing,in_progress,delayed,completed'],
-            'end_date'      => ['nullable','date', 'date_format:Y-m-d', 'after_or_equals:start_date']
+            'end_date'      => ['nullable','date', 'date_format:Y-m-d', 'after_or_equal:start_date']
         ];
     }
 }

@@ -40,8 +40,8 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('projects')->group(function(){
         Volt::route('/', ProjectsIndex::class)->name('projects.index')->middleware('can:viewAny,App\Models\Project');
         Volt::route('/create', ProjectsCreate::class)->name('projects.create')->middleware('can:create,App\Models\Project');
-        Volt::route('/{project}', ProjectsShow::class)->name('projects.show')->middleware('can:view,project');
-        Volt::route('/{project}/edit', ProjectsEdit::class)->name('projects.edit')->middleware('can:update,project');
+        Volt::route('/{project}', ProjectsShow::class)->name('projects.show');
+        Volt::route('/{project}/edit', ProjectsEdit::class)->name('projects.edit');
     });
 
 
@@ -49,8 +49,8 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('tasks')->group(function(){
         Volt::route('/', TasksIndex::class)->name('tasks.index')->middleware('can:viewAny,App\Models\Task');
         Volt::route('/create', TasksCreate::class)->name('tasks.create')->middleware('can:create,App\Models\Task');
-        Volt::route('/{task}', TasksShow::class)->name('tasks.show')->middleware('can:view,task');
-        Volt::route('/{task}/edit', TasksEdit::class)->name('tasks.edit')->middleware('can:update,task');
+        Volt::route('/{task}', TasksShow::class)->name('tasks.show');
+        Volt::route('/{task}/edit', TasksEdit::class)->name('tasks.edit');
     });
 
 

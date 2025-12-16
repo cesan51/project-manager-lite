@@ -20,18 +20,17 @@
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Apps')" class="grid">
                     <flux:navlist.item icon="building-office" :href="route('companies.index')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Companies') }}</flux:navlist.item>
+                    <flux:navlist.item icon="building-office" :href="route('projects.index')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Projects') }}</flux:navlist.item>
+                    <flux:navlist.item icon="building-office" :href="route('tasks.index')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Tasks') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
+
 
             <flux:spacer />
 
             <flux:navlist variant="outline">
-                <flux:navlist.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
+                <flux:navlist.item icon="folder-git-2" href="https://github.com/cesan51/project-manager-lite" target="_blank">
                 {{ __('Repository') }}
-                </flux:navlist.item>
-
-                <flux:navlist.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
-                {{ __('Documentation') }}
                 </flux:navlist.item>
             </flux:navlist>
 

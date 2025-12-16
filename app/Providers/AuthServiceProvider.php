@@ -8,7 +8,7 @@ use App\Models\Project;
 use App\Models\Task;
 use App\Policies\CompanyPolicy;
 use App\Policies\ProjectPolicy;
-use App\Policies\TAskPolicy;
+use App\Policies\TaskPolicy;
 
 
 class AuthServiceProvider extends ServiceProvider
@@ -16,7 +16,7 @@ class AuthServiceProvider extends ServiceProvider
     /**
      * Register services.
      */
-    protected$policies = [
+    protected $policies = [
         Company::class => CompanyPolicy::class,
         Project::class => ProjectPolicy::class,
         Task::class    => TaskPolicy::class
